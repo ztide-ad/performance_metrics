@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Product Sans', sans-serif;
+            height: 100vh;
+        }
+        .table-container {
+            margin-bottom: 10px;
+        }
+        .tab-content {
+            height: 680px;
+            overflow-y: auto;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .container {
+            max-width: 70%;
+            padding: 15px;
+        }
+        .form-inline .form-group {
+            margin-right: 15px;
+        }
+        .form-inline .form-group label {
+            margin-right: 5px;
+        }
+        .table-striped {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-striped th,
+        .table-striped td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .table-striped tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        @media screen and (max-width: 600px) {
+            .table-striped th, 
+            .table-striped td {
+                display: block;
+                width: 100%;
+            }
+            .table-striped tr {
+                display: block;
+                margin-bottom: 10px;
+            }
+            .table-striped th {
+                background-color: #f2f2f2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Dashboard</h1>
+        <form method="GET" class="form-inline my-4">
+            <div class="form-row w-100">
+                <div class="col-md-3 form-group">
+                    <label for="project_name" class="mr-2">Project Name:</label>
+                    <input type="text" id="project_name" name="project_name" class="form-control" value="{{ request.GET.project_name }}">
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="fixed_version_name" class="mr-2">Fixed Version Name:</label>
+                    <input type="text" id="fixed_version_name" name="fixed_version_name" class="form-control" value="{{ request.GET.fixed_version_name }}">
+                </div>
+            </div>
+            <div class="form-row w-100 mt-2">
+                <div class="col-md-3 form-group mr-5">  <label for="year" class="md-2">Year:</label>
+                  <input type="number" id="year" name="year" class="form-control" value="{{ request.GET.year }}">
+                </div>
+                <div class="col-md-3 form-group ml-18 mr-9">  <label for="quarter" class="md-2">Quarter:</label>
+                  <input type="number" id="quarter" name="quarter" class="form-control" value="{{ request.GET.quarter }}">
+                </div>
+                <div class="col-md-3 form-group ml-18">  <label for="month_name" class="md-2">Month:</label>
+                  <input type="text" id="month_name" name="month_name" class="form-control" value="{{ request.GET.year }}">
+                </div>
+            </div>  
+              
+            <button type="submit" class="btn btn-primary mt-3">Update</button>
+        </form>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="yearly-data-tab" data-toggle="tab" href="#yearly-data" role="tab" aria-controls="yearly-data" aria-selected="true">Yearly Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="quarterly-report-tab" data-toggle="tab" href="#quarterly-report" role="tab" aria-controls="quarterly-report" aria-selected="false">Quarterly Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="monthly-report-tab" data-toggle="tab" href="#monthly-report" role="tab" aria-controls="monthly-report" aria-selected="false">Monthly Report</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="yearly-data" role="tabpanel" aria-labelledby="yearly-data-tab">
+                <h2>Yearly Data</h2>
+                <div>{{ df_year|safe }}</div>
+            </div>
+            <div class="tab-pane fade" id="quarterly-report" role="tabpanel" aria-labelledby="quarterly-report-tab">
+                <h2>Quarterly Report</h2>
+                <div>{{ df_quarter|safe }}</div>
+            </div>
+            <div class="tab-pane fade" id="monthly-report" role="tabpanel" aria-labelledby="monthly-report-tab">
+                <h2>Monthly Report</h2>
+                <div>{{ df_month|safe }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

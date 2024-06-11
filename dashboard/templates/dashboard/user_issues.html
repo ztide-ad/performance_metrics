@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Issues</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Product Sans', sans-serif;
+        }
+        .table-striped {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-striped th,
+        .table-striped td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .tab-content {
+            height: 680px;
+            overflow-y: auto;
+        }
+        .table-striped tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>User Issues</h1>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+        <button id="sortButton" class="btn btn-primary mb-3">Sort by Story Points</button>
+        <div id="issuesTable">{{ df_issues|safe }}</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('sortButton').addEventListener('click', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentSort = urlParams.get('sort_story_points');
+            const newSort = (currentSort === 'true') ? 'false' : 'true';
+            urlParams.set('sort_story_points', newSort);
+            window.location.search = urlParams.toString();
+        });
+    </script>
+</body>
+</html>
