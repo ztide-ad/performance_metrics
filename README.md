@@ -86,7 +86,7 @@ python3 -m venv venv
 - on Ubuntu:
 
 ``` bash
-source venv/bin/activate
+source venv/Scripts/activate
 ```
 
 ### 4. Install Dependencies
